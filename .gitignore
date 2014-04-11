@@ -7,10 +7,11 @@ pip-delete-this-directory.txt
 *.log
 *.pot
 .idea/
+/*.sqlite3
 
-bin/
-include/
-lib/
-static/
+/bin/
+/include/
+/lib/
+/static/
 
-app/settings_local.py
+/app/settings_local.py

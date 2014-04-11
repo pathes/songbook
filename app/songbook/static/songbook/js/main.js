@@ -1,10 +1,10 @@
 (function() {
     'use strict';
 
-    angular.module('sb', ['ngResource', 'ngRoute', 'pascalprecht.translate', 'sbUtils'])
+    angular.module('sb', ['ngResource', 'ngRoute', 'pascalprecht.translate', 'sbUtils', 'restangular'])
 
         .config(function ($interpolateProvider, $httpProvider, $locationProvider, $routeProvider,
-                          $translateProvider, sbUrl) {
+                          $translateProvider, sbUrl, RestangularProvider) {
 
             $interpolateProvider.startSymbol('[[');
             $interpolateProvider.endSymbol(']]');
@@ -26,7 +26,10 @@
                 menuSong: 'Song',
                 home: 'home',
                 song: 'song',
-                songList: 'songs'
+                songList: 'songs',
+                performer: 'performer',
+                composer: 'composer',
+                year: 'year'
             });
             $translateProvider.translations('pl', {
                 appName: 'Śpiewnik',
@@ -35,9 +38,15 @@
                 menuSong: 'Piosenka',
                 home: 'strona główna',
                 song: 'piosenka',
-                songList: 'piosenki'
+                songList: 'piosenki',
+                performer: 'wykonawca',
+                composer: 'kompozytor',
+                year: 'rok'
             });
             $translateProvider.determinePreferredLanguage();
+
+            RestangularProvider.setBaseUrl('/api');
+            RestangularProvider.setRequestSuffix('\\');
         })
 
         .controller('sbBaseController', function ($scope, $location, $translate, sbUrl) {
@@ -67,11 +76,51 @@
         .controller('sbHomeController', function () {
         })
 
-        .controller('sbSongListController', function () {
+        .controller('sbSongListController', function ($scope, sbSongScope) {
+            sbSongScope.$watch('songs', function (songs) {
+                $scope.songs = songs;
+            });
         })
 
         .controller('sbSongController', function ($scope, $routeParams) {
             $scope.params = $routeParams;
+        })
+
+        .service('sbSongScope', function ($rootScope, Restangular) {
+            var scope = $rootScope.$new();
+            _.assign(scope, {
+                songs: [],
+                songlists: []
+            });
+            Restangular.one('song').getList().then(function (songs) {
+                scope.songs = songs;
+            });
+            Restangular.one('songlist').getList().then(function (songlists) {
+                scope.songlists = songlists;
+            });
+            return scope;
+        })
+
+        .directive('sbSonglist', function () {
+            return {
+                restrict: 'E',
+                templateUrl: 'static/songbook/html/directives/songlist.html',
+                scope: {
+                    songs: '='
+                },
+                controller: function ($scope) {
+                    $scope.categories = ['performer', 'composer', 'year'];
+                    $scope.category = 'performer';
+                    $scope.$watch('songs', function (songs) {
+                        $scope.songsBy = {};
+                        _.forEach($scope.categories, function (category) {
+                            $scope.songsBy[category] = _.groupBy(songs, function (song) {
+                                return song[category];
+                            });
+                        });
+                    });
+                }
+            }
         });
 
 }());

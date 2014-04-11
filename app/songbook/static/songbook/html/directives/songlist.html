@@ -1,0 +1,17 @@
+<div class="well">
+    <select class="form-control"
+            ng-model="category" ng-options="category | translate for category in categories"></select>
+</div>
+<div class="panel panel-default"
+     ng-repeat="(category, songs) in songsBy[category]">
+    <div class="panel-heading">
+        [[ category ]]
+        <span class="badge pull-right">[[ songs.length ]]</span>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="song in songs">
+            [[ song.title ]]
+            <span class="badge" ng-repeat="genre in song.genre.split(',')">[[ genre ]]</span>
+        </li>
+    </ul>
+</div>
