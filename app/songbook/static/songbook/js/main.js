@@ -82,7 +82,14 @@
             });
         })
 
-        .controller('sbSongController', function ($scope, $routeParams) {
+        .controller('sbSongController', function ($scope, $routeParams, sbSongScope) {
+            sbSongScope.$watch('songs', function (songs) {
+                $scope.song = _.find(songs, {pk: +$routeParams.songId});
+                if (songs && !$scope.song) {
+                    // TODO song not found, show error message
+                    console.error('Song not found!');
+                }
+            });
             $scope.params = $routeParams;
         })
 
@@ -106,7 +113,8 @@
                 restrict: 'E',
                 templateUrl: 'static/songbook/html/directives/songlist.html',
                 scope: {
-                    songs: '='
+                    songs: '=',
+                    linked: '&'
                 },
                 controller: function ($scope) {
                     $scope.categories = ['performer', 'composer', 'year'];

@@ -1,1 +1,13 @@
-<h2>[[ 'song' | translate | sbUpperFirst ]] [[ params.songId ]]</h2>
+<h2>[[ song.title ]]</h2>
+<div class="row">
+    <div class="col-md-4 col-sm-4" ng-show="song.performer">
+        [[ 'performer' | translate | sbUpperFirst ]]: [[ song.performer ]]
+    </div>
+    <div class="col-md-4 col-sm-4"  ng-show="song.composer">
+        [[ 'composer' | translate | sbUpperFirst ]]: [[ song.composer ]]
+    </div>
+    <div class="col-md-4 col-sm-4"  ng-show="song.year">
+        [[ 'year' | translate | sbUpperFirst ]]: [[ song.year ]]
+    </div>
+</div>
+<pre>[[ song.content ]]</pre>

@@ -8,10 +8,10 @@
         [[ category ]]
         <span class="badge pull-right">[[ songs.length ]]</span>
     </div>
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="song in songs">
+    <div class="list-group">
+        <a class="list-group-item" ng-repeat="song in songs" ng-href="[[ linked ? '/song/' + song.pk : '' ]]">
             [[ song.title ]]
             <span class="badge" ng-repeat="genre in song.genre.split(',')">[[ genre ]]</span>
-        </li>
-    </ul>
+        </a>
+    </div>
 </div>
