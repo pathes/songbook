@@ -1,0 +1,704 @@
+[ { "fields" : { "app_label" : "admin",
+        "model" : "logentry",
+        "name" : "log entry"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 1
+  },
+  { "fields" : { "app_label" : "auth",
+        "model" : "permission",
+        "name" : "permission"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 2
+  },
+  { "fields" : { "app_label" : "auth",
+        "model" : "group",
+        "name" : "group"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 3
+  },
+  { "fields" : { "app_label" : "auth",
+        "model" : "user",
+        "name" : "user"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 4
+  },
+  { "fields" : { "app_label" : "contenttypes",
+        "model" : "contenttype",
+        "name" : "content type"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 5
+  },
+  { "fields" : { "app_label" : "sessions",
+        "model" : "session",
+        "name" : "session"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 6
+  },
+  { "fields" : { "app_label" : "south",
+        "model" : "migrationhistory",
+        "name" : "migration history"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 7
+  },
+  { "fields" : { "app_label" : "songbook",
+        "model" : "song",
+        "name" : "song"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 8
+  },
+  { "fields" : { "app_label" : "songbook",
+        "model" : "songlist",
+        "name" : "songlist"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 9
+  },
+  { "fields" : { "app_label" : "songbook",
+        "model" : "songlistitem",
+        "name" : "songlist item"
+      },
+    "model" : "contenttypes.contenttype",
+    "pk" : 10
+  },
+  { "fields" : { "expire_date" : "2014-04-28T20:34:06.705Z",
+        "session_data" : "ZTg5NWVlZTMyOWJiM2I5MjRlNjBjNTBiYjYxMmZhNmM2OTIwMTE0MDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+      },
+    "model" : "sessions.session",
+    "pk" : "sth9r4xpkhpet3656mnry9feu7d9mup4"
+  },
+  { "fields" : { "order" : 2,
+        "song" : 1,
+        "songlist" : 1
+      },
+    "model" : "songbook.songlistitem",
+    "pk" : 1
+  },
+  { "fields" : { "order" : 1,
+        "song" : 3,
+        "songlist" : 1
+      },
+    "model" : "songbook.songlistitem",
+    "pk" : 2
+  },
+  { "fields" : { "order" : 3,
+        "song" : 3,
+        "songlist" : 1
+      },
+    "model" : "songbook.songlistitem",
+    "pk" : 3
+  },
+  { "fields" : { "order" : 1,
+        "song" : 4,
+        "songlist" : 2
+      },
+    "model" : "songbook.songlistitem",
+    "pk" : 4
+  },
+  { "fields" : { "order" : 2,
+        "song" : 7,
+        "songlist" : 2
+      },
+    "model" : "songbook.songlistitem",
+    "pk" : 5
+  },
+  { "fields" : { "order" : 3,
+        "song" : 2,
+        "songlist" : 2
+      },
+    "model" : "songbook.songlistitem",
+    "pk" : 6
+  },
+  { "fields" : { "order" : 4,
+        "song" : 5,
+        "songlist" : 2
+      },
+    "model" : "songbook.songlistitem",
+    "pk" : 7
+  },
+  { "fields" : { "codename" : "add_logentry",
+        "content_type" : 1,
+        "name" : "Can add log entry"
+      },
+    "model" : "auth.permission",
+    "pk" : 1
+  },
+  { "fields" : { "codename" : "change_logentry",
+        "content_type" : 1,
+        "name" : "Can change log entry"
+      },
+    "model" : "auth.permission",
+    "pk" : 2
+  },
+  { "fields" : { "codename" : "delete_logentry",
+        "content_type" : 1,
+        "name" : "Can delete log entry"
+      },
+    "model" : "auth.permission",
+    "pk" : 3
+  },
+  { "fields" : { "codename" : "add_permission",
+        "content_type" : 2,
+        "name" : "Can add permission"
+      },
+    "model" : "auth.permission",
+    "pk" : 4
+  },
+  { "fields" : { "codename" : "change_permission",
+        "content_type" : 2,
+        "name" : "Can change permission"
+      },
+    "model" : "auth.permission",
+    "pk" : 5
+  },
+  { "fields" : { "codename" : "delete_permission",
+        "content_type" : 2,
+        "name" : "Can delete permission"
+      },
+    "model" : "auth.permission",
+    "pk" : 6
+  },
+  { "fields" : { "codename" : "add_group",
+        "content_type" : 3,
+        "name" : "Can add group"
+      },
+    "model" : "auth.permission",
+    "pk" : 7
+  },
+  { "fields" : { "codename" : "change_group",
+        "content_type" : 3,
+        "name" : "Can change group"
+      },
+    "model" : "auth.permission",
+    "pk" : 8
+  },
+  { "fields" : { "codename" : "delete_group",
+        "content_type" : 3,
+        "name" : "Can delete group"
+      },
+    "model" : "auth.permission",
+    "pk" : 9
+  },
+  { "fields" : { "codename" : "add_user",
+        "content_type" : 4,
+        "name" : "Can add user"
+      },
+    "model" : "auth.permission",
+    "pk" : 10
+  },
+  { "fields" : { "codename" : "change_user",
+        "content_type" : 4,
+        "name" : "Can change user"
+      },
+    "model" : "auth.permission",
+    "pk" : 11
+  },
+  { "fields" : { "codename" : "delete_user",
+        "content_type" : 4,
+        "name" : "Can delete user"
+      },
+    "model" : "auth.permission",
+    "pk" : 12
+  },
+  { "fields" : { "codename" : "add_contenttype",
+        "content_type" : 5,
+        "name" : "Can add content type"
+      },
+    "model" : "auth.permission",
+    "pk" : 13
+  },
+  { "fields" : { "codename" : "change_contenttype",
+        "content_type" : 5,
+        "name" : "Can change content type"
+      },
+    "model" : "auth.permission",
+    "pk" : 14
+  },
+  { "fields" : { "codename" : "delete_contenttype",
+        "content_type" : 5,
+        "name" : "Can delete content type"
+      },
+    "model" : "auth.permission",
+    "pk" : 15
+  },
+  { "fields" : { "codename" : "add_session",
+        "content_type" : 6,
+        "name" : "Can add session"
+      },
+    "model" : "auth.permission",
+    "pk" : 16
+  },
+  { "fields" : { "codename" : "change_session",
+        "content_type" : 6,
+        "name" : "Can change session"
+      },
+    "model" : "auth.permission",
+    "pk" : 17
+  },
+  { "fields" : { "codename" : "delete_session",
+        "content_type" : 6,
+        "name" : "Can delete session"
+      },
+    "model" : "auth.permission",
+    "pk" : 18
+  },
+  { "fields" : { "codename" : "add_migrationhistory",
+        "content_type" : 7,
+        "name" : "Can add migration history"
+      },
+    "model" : "auth.permission",
+    "pk" : 19
+  },
+  { "fields" : { "codename" : "change_migrationhistory",
+        "content_type" : 7,
+        "name" : "Can change migration history"
+      },
+    "model" : "auth.permission",
+    "pk" : 20
+  },
+  { "fields" : { "codename" : "delete_migrationhistory",
+        "content_type" : 7,
+        "name" : "Can delete migration history"
+      },
+    "model" : "auth.permission",
+    "pk" : 21
+  },
+  { "fields" : { "codename" : "add_song",
+        "content_type" : 8,
+        "name" : "Can add song"
+      },
+    "model" : "auth.permission",
+    "pk" : 22
+  },
+  { "fields" : { "codename" : "change_song",
+        "content_type" : 8,
+        "name" : "Can change song"
+      },
+    "model" : "auth.permission",
+    "pk" : 23
+  },
+  { "fields" : { "codename" : "delete_song",
+        "content_type" : 8,
+        "name" : "Can delete song"
+      },
+    "model" : "auth.permission",
+    "pk" : 24
+  },
+  { "fields" : { "codename" : "add_songlist",
+        "content_type" : 9,
+        "name" : "Can add songlist"
+      },
+    "model" : "auth.permission",
+    "pk" : 25
+  },
+  { "fields" : { "codename" : "change_songlist",
+        "content_type" : 9,
+        "name" : "Can change songlist"
+      },
+    "model" : "auth.permission",
+    "pk" : 26
+  },
+  { "fields" : { "codename" : "delete_songlist",
+        "content_type" : 9,
+        "name" : "Can delete songlist"
+      },
+    "model" : "auth.permission",
+    "pk" : 27
+  },
+  { "fields" : { "codename" : "add_songlistitem",
+        "content_type" : 10,
+        "name" : "Can add songlist item"
+      },
+    "model" : "auth.permission",
+    "pk" : 28
+  },
+  { "fields" : { "codename" : "change_songlistitem",
+        "content_type" : 10,
+        "name" : "Can change songlist item"
+      },
+    "model" : "auth.permission",
+    "pk" : 29
+  },
+  { "fields" : { "codename" : "delete_songlistitem",
+        "content_type" : 10,
+        "name" : "Can delete songlist item"
+      },
+    "model" : "auth.permission",
+    "pk" : 30
+  },
+  { "fields" : { "date_joined" : "2014-04-14T20:33:46Z",
+        "email" : "admin@admin.pl",
+        "first_name" : "Admin",
+        "groups" : [  ],
+        "is_active" : true,
+        "is_staff" : true,
+        "is_superuser" : true,
+        "last_login" : "2014-04-14T20:34:06Z",
+        "last_name" : "Admin",
+        "password" : "pbkdf2_sha256$12000$uY3UOhvfron0$Z1HUgDB4QMLOr0+e1DQgjGoJv+nqCmqa9wcAcPC9g68=",
+        "user_permissions" : [  ],
+        "username" : "admin"
+      },
+    "model" : "auth.user",
+    "pk" : 1
+  },
+  { "fields" : { "date_joined" : "2014-04-14T20:34:20Z",
+        "email" : "john@doe.com",
+        "first_name" : "John",
+        "groups" : [  ],
+        "is_active" : true,
+        "is_staff" : true,
+        "is_superuser" : false,
+        "last_login" : "2014-04-14T20:34:20Z",
+        "last_name" : "Doe",
+        "password" : "pbkdf2_sha256$12000$AMLF41CtR1HZ$CHjCm/J9vZbJlx1Hml3o5wecV1qQQq4V7hj//L0P8qw=",
+        "user_permissions" : [  ],
+        "username" : "test"
+      },
+    "model" : "auth.user",
+    "pk" : 2
+  },
+  { "fields" : { "author" : 2,
+        "composer" : "The Beatles",
+        "confirmed" : true,
+        "content" : "Hey jude, don't make it bad.\r\nTake a sad song and make it better.\r\nRemember to let her into your heart,\r\nThen you can start to make it better.\r\n    Hey jude, don't be afraid.\r\n    You were made to go out and get her.\r\n    The minute you let her under your skin,\r\n   Then you begin to make it better.\r\nAnd anytime you feel the pain, hey jude, refrain,\r\nDon't carry the world upon your shoulders.\r\nFor well you know that it's a fool who plays it cool\r\nBy making his world a little colder.\r\n    Hey jude, don't let me down.\r\n    You have found her, now go and get her.\r\n    Remember to let her into your heart,\r\n    Then you can start to make it better.\r\nSo let it out and let it in, hey jude, begin,\r\nYoure waiting for someone to perform with.\r\nAnd don't you know that it's just you, hey jude, you'll do,\r\nThe movement you need is on your shoulder.\r\n    Hey jude, don't make it bad.\r\n    Take a sad song and make it better.\r\n    Remember to let her under your skin,\r\n    Then you'll begin to make it\r\n    Better better better better better better, oh.\r\nNa na na na na ,na na na, hey jude...",
+        "creation_time" : "2014-04-14T20:36:47.895Z",
+        "genre" : "rock",
+        "modification_time" : "2014-04-14T20:49:33.319Z",
+        "performer" : "The Beatles",
+        "title" : "Hey Jude",
+        "year" : "1968"
+      },
+    "model" : "songbook.song",
+    "pk" : 1
+  },
+  { "fields" : { "author" : 2,
+        "composer" : "Elektryczne Gitary",
+        "confirmed" : true,
+        "content" : "Lorem ipsum dolor sit amet.",
+        "creation_time" : "2014-04-14T20:39:19.665Z",
+        "genre" : "rock",
+        "modification_time" : "2014-04-14T20:39:19.666Z",
+        "performer" : "Elektryczne Gitary",
+        "title" : "Kiler",
+        "year" : "1997"
+      },
+    "model" : "songbook.song",
+    "pk" : 2
+  },
+  { "fields" : { "author" : 2,
+        "composer" : "Elektryczne Gitary",
+        "confirmed" : true,
+        "content" : "Lorem ipsum dolor sit amet,\r\nconsectetur adipiscing elit.\r\nCurabitur dapibus lobortis\r\neros nec viverra.",
+        "creation_time" : "2014-04-14T20:40:15.971Z",
+        "genre" : "rock",
+        "modification_time" : "2014-04-14T20:40:15.972Z",
+        "performer" : "Elektryczne Gitary",
+        "title" : "Człowiek z liściem",
+        "year" : "1995"
+      },
+    "model" : "songbook.song",
+    "pk" : 3
+  },
+  { "fields" : { "author" : 2,
+        "composer" : "Dżem",
+        "confirmed" : true,
+        "content" : "Sed tempus non dui eu faucibus.\r\nProin accumsan nisl sit amet neque\r\nhendrerit, eu ultricies lectus condimentum.",
+        "creation_time" : "2014-04-14T20:41:12.437Z",
+        "genre" : "blues,rock",
+        "modification_time" : "2014-04-14T20:41:12.437Z",
+        "performer" : "Dżem",
+        "title" : "Whisky",
+        "year" : "1992"
+      },
+    "model" : "songbook.song",
+    "pk" : 4
+  },
+  { "fields" : { "author" : 1,
+        "composer" : "Ray Charles",
+        "confirmed" : true,
+        "content" : "Aenean eu blandit augue.\r\nVestibulum dolor ligula,\r\nviverra a erat fringilla,\r\nsodales porttitor dui.",
+        "creation_time" : "2014-04-14T20:42:59.602Z",
+        "genre" : "rhythm'n'blues",
+        "modification_time" : "2014-04-14T20:42:59.602Z",
+        "performer" : "Ray Charles",
+        "title" : "What'd I say",
+        "year" : "1963"
+      },
+    "model" : "songbook.song",
+    "pk" : 5
+  },
+  { "fields" : { "author" : 2,
+        "composer" : "The Beatles",
+        "confirmed" : false,
+        "content" : "Eleanor Rigby picks up the rice in the church where a wedding has been,\r\nLives in a dream\r\nWaits at the window, wearing the face that she keeps in a jar by the door\r\nWho is it for?\r\nAll the lonely π/2\r\nWhere do they all come from?\r\nAll the lonely π/2\r\nWhere do they all belong?",
+        "creation_time" : "2014-04-14T20:46:03.480Z",
+        "genre" : "baroque pop",
+        "modification_time" : "2014-04-14T20:46:03.480Z",
+        "performer" : "Ray Charles",
+        "title" : "Eleanor Rigby",
+        "year" : "1968"
+      },
+    "model" : "songbook.song",
+    "pk" : 6
+  },
+  { "fields" : { "author" : 2,
+        "composer" : "Joe Bonamassa",
+        "confirmed" : false,
+        "content" : "Sloe Gin, Sloe Gin\r\nTryin' to wash away the pain inside\r\nWell I'm sick and I'm all done in\r\nAnd I'm standing in the rain\r\nAnd I feel like I'm gonna cry",
+        "creation_time" : "2014-04-14T20:47:15.586Z",
+        "genre" : "blues",
+        "modification_time" : "2014-04-14T20:47:15.586Z",
+        "performer" : "Joe Bonamassa",
+        "title" : "Sloe Gin",
+        "year" : "1999"
+      },
+    "model" : "songbook.song",
+    "pk" : 7
+  },
+  { "fields" : { "author" : 2,
+        "creation_time" : "2014-04-14T20:47:41.955Z",
+        "is_public" : false,
+        "modification_time" : "2014-04-14T20:47:41.955Z",
+        "title" : "Favorites"
+      },
+    "model" : "songbook.songlist",
+    "pk" : 1
+  },
+  { "fields" : { "author" : 2,
+        "creation_time" : "2014-04-14T20:47:53.412Z",
+        "is_public" : true,
+        "modification_time" : "2014-04-14T20:47:53.412Z",
+        "title" : "Party music"
+      },
+    "model" : "songbook.songlist",
+    "pk" : 2
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:34:20.349Z",
+        "change_message" : "",
+        "content_type" : 4,
+        "object_id" : "2",
+        "object_repr" : "test",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 1
+  },
+  { "fields" : { "action_flag" : 2,
+        "action_time" : "2014-04-14T20:34:47.381Z",
+        "change_message" : "Changed first_name, last_name, email and is_staff.",
+        "content_type" : 4,
+        "object_id" : "2",
+        "object_repr" : "test",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 2
+  },
+  { "fields" : { "action_flag" : 2,
+        "action_time" : "2014-04-14T20:35:06.457Z",
+        "change_message" : "Changed first_name and last_name.",
+        "content_type" : 4,
+        "object_id" : "1",
+        "object_repr" : "admin",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 3
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:36:47.897Z",
+        "change_message" : "",
+        "content_type" : 8,
+        "object_id" : "1",
+        "object_repr" : "Hey Jude",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 4
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:39:19.666Z",
+        "change_message" : "",
+        "content_type" : 8,
+        "object_id" : "2",
+        "object_repr" : "Kiler",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 5
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:40:15.972Z",
+        "change_message" : "",
+        "content_type" : 8,
+        "object_id" : "3",
+        "object_repr" : "Człowiek z liściem",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 6
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:41:12.438Z",
+        "change_message" : "",
+        "content_type" : 8,
+        "object_id" : "4",
+        "object_repr" : "Whisky",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 7
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:42:59.603Z",
+        "change_message" : "",
+        "content_type" : 8,
+        "object_id" : "5",
+        "object_repr" : "What'd I say",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 8
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:46:03.481Z",
+        "change_message" : "",
+        "content_type" : 8,
+        "object_id" : "6",
+        "object_repr" : "Eleanor Rigby",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 9
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:47:15.587Z",
+        "change_message" : "",
+        "content_type" : 8,
+        "object_id" : "7",
+        "object_repr" : "Sloe Gin",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 10
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:47:41.957Z",
+        "change_message" : "",
+        "content_type" : 9,
+        "object_id" : "1",
+        "object_repr" : "Favorites",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 11
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:47:53.413Z",
+        "change_message" : "",
+        "content_type" : 9,
+        "object_id" : "2",
+        "object_repr" : "Party music",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 12
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:48:07.997Z",
+        "change_message" : "",
+        "content_type" : 10,
+        "object_id" : "1",
+        "object_repr" : "Favorites[2] Hey Jude",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 13
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:48:17.887Z",
+        "change_message" : "",
+        "content_type" : 10,
+        "object_id" : "2",
+        "object_repr" : "Favorites[1] Człowiek z liściem",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 14
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:48:24.967Z",
+        "change_message" : "",
+        "content_type" : 10,
+        "object_id" : "3",
+        "object_repr" : "Favorites[3] Człowiek z liściem",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 15
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:48:31.540Z",
+        "change_message" : "",
+        "content_type" : 10,
+        "object_id" : "4",
+        "object_repr" : "Party music[1] Whisky",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 16
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:48:39.637Z",
+        "change_message" : "",
+        "content_type" : 10,
+        "object_id" : "5",
+        "object_repr" : "Party music[2] Sloe Gin",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 17
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:48:45.221Z",
+        "change_message" : "",
+        "content_type" : 10,
+        "object_id" : "6",
+        "object_repr" : "Party music[3] Kiler",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 18
+  },
+  { "fields" : { "action_flag" : 1,
+        "action_time" : "2014-04-14T20:48:53.356Z",
+        "change_message" : "",
+        "content_type" : 10,
+        "object_id" : "7",
+        "object_repr" : "Party music[4] What'd I say",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 19
+  },
+  { "fields" : { "action_flag" : 2,
+        "action_time" : "2014-04-14T20:49:33.322Z",
+        "change_message" : "Changed year.",
+        "content_type" : 8,
+        "object_id" : "1",
+        "object_repr" : "Hey Jude",
+        "user" : 1
+      },
+    "model" : "admin.logentry",
+    "pk" : 20
+  }
+]
