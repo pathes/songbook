@@ -35,6 +35,12 @@ cp app/settings_local.py.example app/settings_local.py
 ```
 python manage.py syncdb
 ```
+
+If you want to have initial data in database, load fixtures.
+
+```
+python manage.py loaddata basic.json
+```
 * Launch development server.
 
 ```
