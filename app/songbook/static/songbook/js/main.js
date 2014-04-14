@@ -73,7 +73,10 @@
             });
         })
 
-        .controller('sbHomeController', function () {
+        .controller('sbHomeController', function ($scope, sbArticleScope) {
+            sbArticleScope.$watch('articles', function (articles) {
+                $scope.articles = articles;
+            });
         })
 
         .controller('sbSongListController', function ($scope, sbSongScope) {
@@ -104,6 +107,17 @@
             });
             Restangular.one('songlist').getList().then(function (songlists) {
                 scope.songlists = songlists;
+            });
+            return scope;
+        })
+
+        .service('sbArticleScope', function ($rootScope, Restangular) {
+            var scope = $rootScope.$new();
+            _.assign(scope, {
+                articles: []
+            });
+            Restangular.one('article').getList().then(function (articles) {
+                scope.articles = articles;
             });
             return scope;
         })

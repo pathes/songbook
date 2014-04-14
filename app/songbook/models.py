@@ -37,3 +37,11 @@ class SonglistItem(models.Model):
 
     def __unicode__(self):
         return u'{}[{}] {}'.format(self.songlist.title, self.order, self.song.title)
+
+
+class Article(models.Model):
+    author = models.ForeignKey(User)
+    creation_time = models.DateTimeField(auto_now_add=True)
+    modification_time = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
