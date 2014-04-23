@@ -46,7 +46,7 @@
             $translateProvider.determinePreferredLanguage();
 
             RestangularProvider.setBaseUrl('/api');
-            RestangularProvider.setRequestSuffix('\\');
+            RestangularProvider.setRequestSuffix('/');
         })
 
         .controller('sbBaseController', function ($scope, $location, $translate, sbUrl) {
