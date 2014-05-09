@@ -1,10 +1,10 @@
 (function() {
     'use strict';
 
-    angular.module('sb', ['ngResource', 'ngRoute', 'pascalprecht.translate', 'sbUtils', 'restangular'])
+    angular.module('sb', ['ngResource', 'ngRoute', 'pascalprecht.translate', 'sbAuth', 'sbUtils', 'restangular'])
 
         .config(function ($interpolateProvider, $httpProvider, $locationProvider, $routeProvider,
-                          $translateProvider, sbUrl, RestangularProvider) {
+                          $translateProvider, sbTranslate, sbUrl, sbAccountsUrl, RestangularProvider) {
 
             $interpolateProvider.startSymbol('[[');
             $interpolateProvider.endSymbol(']]');
@@ -15,33 +15,15 @@
             _.forEach(sbUrl, function (menuItem) {
                 $routeProvider.when(menuItem.url, _.pick(menuItem, ['templateUrl', 'controller']));
             });
+            // Allow django-registration templates to be rendered.
+            $routeProvider.when('/accounts/:whatever/', {});
+            $routeProvider.when('/accounts/:whatever/:whatever2/', {});
             $routeProvider.otherwise({
-                redirectTo: '/'
+                redirectTo: '/' // TODO 404 handling
             });
 
-            $translateProvider.translations('en', {
-                appName: 'Songbook',
-                menuHome: 'Home',
-                menuSongs: 'Songs',
-                menuSong: 'Song',
-                home: 'home',
-                song: 'song',
-                songList: 'songs',
-                performer: 'performer',
-                composer: 'composer',
-                year: 'year'
-            });
-            $translateProvider.translations('pl', {
-                appName: 'Śpiewnik',
-                menuHome: 'Strona główna',
-                menuSongs: 'Piosenki',
-                menuSong: 'Piosenka',
-                home: 'strona główna',
-                song: 'piosenka',
-                songList: 'piosenki',
-                performer: 'wykonawca',
-                composer: 'kompozytor',
-                year: 'rok'
+            _.forIn(sbTranslate, function (translation, language) {
+                $translateProvider.translations(language, translation);
             });
             $translateProvider.determinePreferredLanguage();
 
@@ -49,8 +31,9 @@
             RestangularProvider.setRequestSuffix('/');
         })
 
-        .controller('sbBaseController', function ($scope, $location, $translate, sbUrl) {
+        .controller('sbBaseController', function ($scope, $http, $location, $route, $translate, sbAuth, sbUrl) {
             _.assign($scope, {
+                username: window.username,
                 menuItems: _.filter(sbUrl, 'inMenu'),
                 menuItemActive: function (menuItem) {
                     // Special case for '/'
@@ -66,11 +49,24 @@
                 languages: ['en', 'pl'],
                 changeLanguage: function (language) {
                     $translate.use(language);
+                    $http.post('/api/locale/', {locale: language});
                 },
                 languageActive: function (language) {
                     return $translate.use() === language ? 'active' : '';
+                },
+                auth: sbAuth
+            });
+            $scope.$on('$routeChangeSuccess', function () {
+                if (!/\/accounts/.test($location.path())) {
+                    var staticContent = document.getElementById('static-content');
+                    if (staticContent) {
+                        staticContent.remove();
+                    }
                 }
             });
+        })
+
+        .controller('sbAccountsController', function () {
         })
 
         .controller('sbHomeController', function ($scope, sbArticleScope) {

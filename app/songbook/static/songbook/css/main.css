@@ -1,3 +1,10 @@
 body {
     padding-top: 80px;
 }
+.popover-login {
+    display: block;
+    top: 40px;
+}
+.popover-login .btn-danger {
+    margin: 0 0 0 8px;
+}

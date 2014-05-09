@@ -6,6 +6,9 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}vendor/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}songbook/css/main.css">
         {% endcompress %}
+        {% if user.is_authenticated %}
+        <script>window.username = '{{ user.username }}';</script>
+        {% endif %}
         {% compress js %}
         <script src="{{ STATIC_URL }}vendor/js/lodash.js"></script>
         <script src="{{ STATIC_URL }}vendor/js/angular.js"></script>
@@ -14,29 +17,65 @@
         <script src="{{ STATIC_URL }}vendor/js/angular-translate.js"></script>
         <script src="{{ STATIC_URL }}vendor/js/restangular.js"></script>
         <script src="{{ STATIC_URL }}songbook/js/utils.js"></script>
+        <script src="{{ STATIC_URL }}songbook/js/auth.js"></script>
         <script src="{{ STATIC_URL }}songbook/js/main.js"></script>
         {% endcompress %}
-        <title>[[ 'appName' | translate ]]</title>
+        <title ng-bind="'appName' | translate | sbUpperFirst">songbook</title>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">[[ 'appName' | translate ]]</a>
+                    <a class="navbar-brand" href="/">[[ 'appName' | translate | sbUpperFirst ]]</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li ng-repeat="menuItem in menuItems" ng-class="menuItemActive(menuItem)">
-                       <a ng-href="[[ menuItem.url ]]">[[ menuItem.caption | translate ]]</a>
+                       <a ng-href="[[ menuItem.url ]]">[[ menuItem.caption | translate | sbUpperFirst ]]</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
+                    <li ng-hide="auth.data.username">
+                        <form class="navbar-form navbar-right"
+                              ng-submit="auth.login({username: username, password: password})">
+                            <div class="form-group">
+                                <input ng-model="username" required name="username"
+                                       type="text" placeholder="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input ng-model="password" required name="password" type="password"
+                                       placeholder="password" class="form-control">
+                            </div>
+                            <div class="btn-group">
+                                <input type="submit" class="btn btn-default" ng-value="'signIn' | translate | sbUpperFirst">
+                            </div>
+                            <div class="popover bottom popover-login" ng-show="auth.data.error">
+                                <div class="arrow"></div>
+                                <div class="popover-content">
+                                    [[ auth.data.error ]]
+                                    <button type="button" ng-click="auth.data.error = undefined" class="btn btn-danger btn-xs">×</button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                    <li ng-show="auth.data.username">
+                        <a>[[ 'loggedAs' | translate | sbUpperFirst ]] [[ auth.data.username ]]</a>
+                    </li>
+                    <li ng-show="auth.data.username">
+                        <div class="navbar-form navbar-right">
+                            <button class="btn btn-default" ng-click="auth.logout()">[[ 'signOut' | translate | sbUpperFirst ]]</button>
+                        </div>
+                    </li>
                     <li ng-repeat="language in languages" ng-class="languageActive(language)">
                         <a ng-click="changeLanguage(language)">[[ language ]]</a>
                     </li>
                 </ul>
             </div>
         </div>
-
-        <div class="container ng-view"></div>
+        <div class="container">
+            <div id="static-content">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="ng-view"></div>
+        </div>
     </body>
 </html>
