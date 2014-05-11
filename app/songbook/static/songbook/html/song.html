@@ -1,13 +1,44 @@
-<h2>[[ song.title ]]</h2>
-<div class="row">
-    <div class="col-md-4 col-sm-4" ng-show="song.performer">
-        [[ 'performer' | translate | sbUpperFirst ]]: [[ song.performer ]]
-    </div>
-    <div class="col-md-4 col-sm-4"  ng-show="song.composer">
-        [[ 'composer' | translate | sbUpperFirst ]]: [[ song.composer ]]
-    </div>
-    <div class="col-md-4 col-sm-4"  ng-show="song.year">
-        [[ 'year' | translate | sbUpperFirst ]]: [[ song.year ]]
-    </div>
+<div class="pull-right">
+    <button type="button" class="btn btn-default" ng-disabled="!saved" ng-click="generatePDF()">
+        [[ 'generatePDF' | translate | sbUpperFirst ]]
+    </button>
+    <button type="button" class="btn btn-primary" ng-show="editing()" ng-disabled="saved" ng-click="save()">
+        [[ (saved ? 'saved' : 'save') | translate | sbUpperFirst ]]
+    </button>
 </div>
-<pre>[[ song.content ]]</pre>
+<div ng-show="editing()">
+    <h2>
+        [[ 'song' | translate | sbUpperFirst ]]
+        <input type="text" ng-model="song.title" ng-change="saved = false">
+    </h2>
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            [[ 'performer' | translate | sbUpperFirst ]]:
+            <input type="text" ng-model="song.performer" ng-change="saved = false">
+        </div>
+        <div class="col-md-4 col-sm-4">
+            [[ 'composer' | translate | sbUpperFirst ]]:
+            <input type="text" ng-model="song.composer" ng-change="saved = false">
+        </div>
+        <div class="col-md-4 col-sm-4">
+            [[ 'year' | translate | sbUpperFirst ]]:
+            <input type="text" ng-model="song.year" ng-change="saved = false">
+        </div>
+    </div>
+    <textarea class="col-xs-12 pre" rows="20" ng-model="song.content" ng-change="saved = false"></textarea>
+</div>
+<div ng-hide="editing()">
+    <h2>[[ 'song' | translate | sbUpperFirst ]] [[ song.title ]]</h2>
+    <div class="row">
+        <div class="col-md-4 col-sm-4" ng-show="song.performer">
+            [[ 'performer' | translate | sbUpperFirst ]]: [[ song.performer ]]
+        </div>
+        <div class="col-md-4 col-sm-4"  ng-show="song.composer">
+            [[ 'composer' | translate | sbUpperFirst ]]: [[ song.composer ]]
+        </div>
+        <div class="col-md-4 col-sm-4"  ng-show="song.year">
+            [[ 'year' | translate | sbUpperFirst ]]: [[ song.year ]]
+        </div>
+    </div>
+    <pre>[[ song.content ]]</pre>
+</div>

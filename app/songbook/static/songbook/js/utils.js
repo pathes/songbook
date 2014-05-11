@@ -14,8 +14,8 @@
             {
                 caption: 'menuSongs',
                 url: '/song',
-                templateUrl: '/static/songbook/html/songlist.html',
-                controller: 'sbSongListController',
+                templateUrl: '/static/songbook/html/songs.html',
+                controller: 'sbSongsController',
                 inMenu: true
             },
             {
@@ -23,6 +23,20 @@
                 url: '/song/:songId',
                 templateUrl: '/static/songbook/html/song.html',
                 controller: 'sbSongController',
+                inMenu: false
+            },
+            {
+                caption: 'menuSonglists',
+                url: '/songlist',
+                templateUrl: '/static/songbook/html/songlists.html',
+                controller: 'sbSonglistsController',
+                inMenu: true
+            },
+            {
+                caption: 'menuSonglist',
+                url: '/songlist/:songlistId',
+                templateUrl: '/static/songbook/html/songlist.html',
+                controller: 'sbSonglistController',
                 inMenu: false
             }
         ])
@@ -50,12 +64,23 @@
                 menuHome: 'home',
                 menuSongs: 'songs',
                 menuSong: 'song',
+                menuSonglists: 'song lists',
+                menuSonglist: 'song list',
                 home: 'home',
                 song: 'song',
-                songList: 'songs',
+                songs: 'songs',
+                songlist: 'song list',
+                songlists: 'song lists',
                 performer: 'performer',
                 composer: 'composer',
-                year: 'year'
+                year: 'year',
+                availableSongs: 'available songs',
+                songlistContent: 'songlist content',
+                SonglistDropHere: 'Drag and drop songs here to create a songlist.',
+                save: 'save',
+                saved: 'saved',
+                create: 'create',
+                generatePDF: 'generate PDF'
             },
             pl: {
                 appName: 'śpiewnik',
@@ -65,12 +90,23 @@
                 menuHome: 'strona główna',
                 menuSongs: 'piosenki',
                 menuSong: 'piosenka',
+                menuSonglists: 'listy piosenek',
+                menuSonglist: 'lista piosenek',
                 home: 'strona główna',
                 song: 'piosenka',
-                songList: 'piosenki',
+                songs: 'piosenki',
+                songlist: 'lista piosenek',
+                songlists: 'listy piosenek',
                 performer: 'wykonawca',
                 composer: 'kompozytor',
-                year: 'rok'
+                year: 'rok',
+                availableSongs: 'dostępne piosenki',
+                songlistContent: 'zawartość listy piosenek',
+                SonglistDropHere: 'Przeciągnij i upuść piosenki tutaj, by stworzyć listę piosenek.',
+                save: 'zapisz',
+                saved: 'zapisano',
+                create: 'utwórz',
+                generatePDF: 'generuj PDF'
             }
         })
 

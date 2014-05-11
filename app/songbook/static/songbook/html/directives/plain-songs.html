@@ -1,0 +1,11 @@
+<div class="list-group">
+    <a class="list-group-item" ng-repeat="song in songs track by $index"
+       ng-href="[[ linked ? '/song/' + song.pk : '' ]]"
+       ui-draggable="[[ !!draggable ]]"
+       drag="song">
+        <span class="song-confirmed" ng-show="song.confirmed"
+              title="[[ 'confirmed' | translate | sbUpperFirst ]]">✓</span>
+        <span class="badge" ng-repeat="genre in song.genre.split(',')">[[ genre ]]</span>
+        [[ song.title ]]
+    </a>
+</div>

@@ -61,8 +61,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'static/'
-
-
-# registration
-REGISTRATION_OPEN = True
-LOGIN_REDIRECT_URL = '/'

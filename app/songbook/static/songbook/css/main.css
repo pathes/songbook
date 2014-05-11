@@ -5,6 +5,44 @@ body {
     display: block;
     top: 40px;
 }
-.popover-login .btn-danger {
-    margin: 0 0 0 8px;
+.songs-bordered {
+    padding: 20px;
+    background: #eee;
+    font-size: 16px;
+}
+.song-confirmed {
+    float: left;
+    color: green;
+    font-size: 24px;
+    margin-right: 4px;
+    line-height: 18px;
+}
+
+/* http://www.minimit.com/articles/solutions-tutorials/bootstrap-3-responsive-columns-of-same-height */
+.container-height {
+    display: table;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.row-height {
+    display: table-row;
+}
+.col-height {
+    display: table-cell;
+    float: none;
+    vertical-align: top;
+}
+.pre {
+    font-family: monospace, monospace;
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }

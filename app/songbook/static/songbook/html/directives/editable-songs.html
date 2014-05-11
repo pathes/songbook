@@ -1,0 +1,16 @@
+<div class="list-group"
+     ng-class="{'songs-bordered': !songs.length}"
+     ui-on-drop="dropAddSong($event, undefined, $data)">
+    [[ songs.length ? '' : ('SonglistDropHere' | translate) ]]
+    <a class="list-group-item" ng-repeat="song in songs track by $index"
+       ng-href="[[ linked ? '/song/' + song.pk : '' ]]"
+       ui-draggable="true"
+       ui-on-drop="dropAddSong($event, $index, $data)"
+       on-drop-success="dropRemoveSong($event, $index)"
+       drag="song">
+        <button type="button" ng-click="removeSong($index)" class="close">×</button>
+        [[ song.composer ]] - [[ song.title ]]
+        <span class="song-confirmed" ng-show="song.confirmed"
+              title="[[ 'confirmed' | translate | sbUpperFirst ]]">✓</span>
+    </a>
+</div>

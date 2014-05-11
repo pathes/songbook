@@ -1,2 +1,39 @@
-<h2>[[ 'songList' | translate | sbUpperFirst ]]</h2>
-<sb-songlist songs="songs" linked="true"></sb-songlist>
+<div class="pull-right">
+    <button type="button" class="btn btn-default" ng-disabled="!saved" ng-click="generatePDF()">
+        [[ 'generatePDF' | translate | sbUpperFirst ]]
+    </button>
+    <button type="button" class="btn btn-primary" ng-show="editing()" ng-disabled="saved" ng-click="save()">
+        [[ (saved ? 'saved' : 'save') | translate | sbUpperFirst ]]
+    </button>
+</div>
+<div ng-show="editing()">
+    <h2>
+        [[ 'songlist' | translate | sbUpperFirst ]]
+        <input type="text" ng-model="songlist.title" ng-change="saved = false">
+    </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>[[ 'availableSongs' | translate | sbUpperFirst ]]</h3>
+            </div>
+            <div class="col-md-6">
+                <h3>[[ 'songlistContent' | translate | sbUpperFirst ]]</h3>
+            </div>
+        </div>
+        <div class="row row-height">
+            <sb-filtered-songs class="col-md-6 col-height"
+                               songs="songs" linked="false" draggable="true"></sb-filtered-songs>
+            <sb-editable-songs class="col-md-6 col-height"
+                               songs="songlistSongs" linked="false"
+                               draggable="true"
+                               drop-add-song="dropAddSong"
+                               drop-remove-song="dropRemoveSong"
+                               remove-song="removeSong"
+                               ></sb-editable-songs>
+        </div>
+    </div>
+</div>
+<div ng-hide="editing()">
+    <h2>[[ 'songlist' | translate | sbUpperFirst ]] [[ songlist.title ]]</h2>
+    <sb-plain-songs songs="songlistSongs" linked="true"></sb-plain-songs>
+</div>

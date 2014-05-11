@@ -1,0 +1,12 @@
+<div class="pull-right">
+    <button type="button" class="btn btn-primary" ng-show="authenticated()" ng-click="create()">
+        [[ 'create' | translate | sbUpperFirst ]]
+    </button>
+</div>
+<h2>[[ 'songlists' | translate | sbUpperFirst ]]</h2>
+<div class="list-group">
+    <a class="list-group-item" ng-repeat="songlist in songlists track by $index"
+       ng-href="[[ '/songlist/' + songlist.pk ]]">
+        [[ songlist.author_name ]] - [[ songlist.title ]]
+    </a>
+</div>

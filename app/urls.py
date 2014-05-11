@@ -6,6 +6,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/logout/$','django.contrib.auth.views.logout_then_login'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^', include('app.songbook.urls')),
 )

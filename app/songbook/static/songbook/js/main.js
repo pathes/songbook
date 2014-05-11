@@ -1,7 +1,9 @@
 (function() {
     'use strict';
 
-    angular.module('sb', ['ngResource', 'ngRoute', 'pascalprecht.translate', 'sbAuth', 'sbUtils', 'restangular'])
+    angular.module('sb', [
+            'ngDragDrop', 'ngResource', 'ngRoute', 'pascalprecht.translate', 'sbAuth', 'sbUtils', 'restangular'
+        ])
 
         .config(function ($interpolateProvider, $httpProvider, $locationProvider, $routeProvider,
                           $translateProvider, sbTranslate, sbUrl, sbAccountsUrl, RestangularProvider) {
@@ -15,9 +17,6 @@
             _.forEach(sbUrl, function (menuItem) {
                 $routeProvider.when(menuItem.url, _.pick(menuItem, ['templateUrl', 'controller']));
             });
-            // Allow django-registration templates to be rendered.
-            $routeProvider.when('/accounts/:whatever/', {});
-            $routeProvider.when('/accounts/:whatever/:whatever2/', {});
             $routeProvider.otherwise({
                 redirectTo: '/' // TODO 404 handling
             });
@@ -29,11 +28,11 @@
 
             RestangularProvider.setBaseUrl('/api');
             RestangularProvider.setRequestSuffix('/');
+            RestangularProvider.setRestangularFields({id: "pk"});
         })
 
         .controller('sbBaseController', function ($scope, $http, $location, $route, $translate, sbAuth, sbUrl) {
             _.assign($scope, {
-                username: window.username,
                 menuItems: _.filter(sbUrl, 'inMenu'),
                 menuItemActive: function (menuItem) {
                     // Special case for '/'
@@ -41,7 +40,7 @@
                         if ($location.path() === '/') {
                             return 'active';
                         }
-                    } else if ($location.path().substr(0, menuItem.url.length) === menuItem.url) {
+                    } else if (($location.path() + '/').substr(0, menuItem.url.length + 1) === menuItem.url + '/') {
                         return 'active';
                     }
                     return '';
@@ -75,36 +74,135 @@
             });
         })
 
-        .controller('sbSongListController', function ($scope, sbSongScope) {
-            sbSongScope.$watch('songs', function (songs) {
+        .controller('sbSongsController', function ($scope, $location, sbAuth, Restangular) {
+            Restangular.all('song').getList().then(function (songs) {
                 $scope.songs = songs;
             });
-        })
-
-        .controller('sbSongController', function ($scope, $routeParams, sbSongScope) {
-            sbSongScope.$watch('songs', function (songs) {
-                $scope.song = _.find(songs, {pk: +$routeParams.songId});
-                if (songs && !$scope.song) {
-                    // TODO song not found, show error message
-                    console.error('Song not found!');
+            _.assign($scope, {
+                authenticated: function () {
+                    return !!sbAuth.id;
+                },
+                create: function () {
+                    Restangular.all('song').post({
+                        author: sbAuth.id,
+                        title: '…',
+                        content: '…'
+                    }).then(function (newSong) {
+                        $location.path('/song/' + newSong.pk);
+                    });
                 }
             });
-            $scope.params = $routeParams;
         })
 
-        .service('sbSongScope', function ($rootScope, Restangular) {
-            var scope = $rootScope.$new();
-            _.assign(scope, {
-                songs: [],
-                songlists: []
+        .controller('sbSongController', function ($scope, $routeParams, $location, sbAuth, Restangular) {
+            Restangular.one('song', +$routeParams.songId).get().then(
+                function (song) {
+                    _.assign($scope, {
+                        song: song,
+                        editing: function () {
+                            return sbAuth.id === song.author;
+                        }
+                    });
+                },
+                function () {
+                    $location.path('/song');
+                }
+            );
+            _.assign($scope, {
+                params: $routeParams,
+                saved: true,
+                save: function () {
+                    $scope.song.put().then(function () {
+                        $scope.saved = true;
+                    });
+                }
             });
-            Restangular.one('song').getList().then(function (songs) {
-                scope.songs = songs;
+        })
+
+        .controller('sbSonglistsController', function ($scope, sbAuth, $location, Restangular) {
+            Restangular.all('songlist').getList().then(function (songlists) {
+                $scope.songlists = songlists;
             });
-            Restangular.one('songlist').getList().then(function (songlists) {
-                scope.songlists = songlists;
+            _.assign($scope, {
+                authenticated: function () {
+                    return !!sbAuth.id;
+                },
+                create: function () {
+                    Restangular.all('songlist').post({
+                        author: sbAuth.id,
+                        title: '…',
+                        is_public: true,
+                        songs: []
+                    }).then(function (newSonglist) {
+                        $location.path('/songlist/' + newSonglist.pk);
+                    });
+                }
             });
-            return scope;
+        })
+
+        .controller('sbSonglistController', function ($scope, $location, $routeParams, sbAuth, Restangular) {
+            // Send requests first
+            var songlistRequest = Restangular.one('songlist', +$routeParams.songlistId).get();
+            var songsRequest = Restangular.all('song').getList();
+            // then add callbacks
+            songlistRequest.then(
+                function (songlist) {
+                    songsRequest.then(
+                        function (songs) {
+                            _.assign($scope, {
+                                songs: songs,
+                                songlist: songlist,
+                                songlistSongs: _.map(songlist.songs, function (songId) {
+                                    return _.find(songs, {pk: songId});
+                                }),
+                                editing: function () {
+                                    return sbAuth.id === songlist.author;
+                                }
+                            });
+                        }
+                    );
+                },
+                function () {
+                    $location.path('/songlist');
+                }
+            );
+
+            var lastAdded;
+
+            _.assign($scope, {
+                params: $routeParams,
+                saved: true,
+                dropAddSong: function ($event, $index, $data) {
+                    // If $index not provided, add song to end.
+                    if ($index === undefined) {
+                        $index = Infinity;
+                    }
+                    // Used in drag'n'drop.
+                    $scope.songlistSongs.splice($index, 0, $data);
+                    $scope.saved = false;
+                    lastAdded = $index;
+                },
+                dropRemoveSong: function ($event, $index) {
+                    if (lastAdded < $index) {
+                        $index++;
+                    }
+                    $scope.songlistSongs.splice($index, 1);
+                    $scope.saved = false;
+                },
+                removeSong: function ($index) {
+                    // Used for removing song by pressing "×" button.
+                    $scope.songlistSongs.splice($index, 1);
+                    $scope.saved = false;
+                },
+                save: function () {
+                    $scope.songlist.songs = _.map($scope.songlistSongs, function (song) {
+                        return song.pk;
+                    });
+                    $scope.songlist.put().then(function () {
+                        $scope.saved = true;
+                    });
+                }
+            });
         })
 
         .service('sbArticleScope', function ($rootScope, Restangular) {
@@ -112,19 +210,48 @@
             _.assign(scope, {
                 articles: []
             });
-            Restangular.one('article').getList().then(function (articles) {
+            Restangular.all('article').getList().then(function (articles) {
                 scope.articles = articles;
             });
             return scope;
         })
 
-        .directive('sbSonglist', function () {
+        .directive('sbPlainSongs', function () {
             return {
                 restrict: 'E',
-                templateUrl: 'static/songbook/html/directives/songlist.html',
+                replace: true,
+                templateUrl: '/static/songbook/html/directives/plain-songs.html',
                 scope: {
                     songs: '=',
-                    linked: '&'
+                    linked: '=',
+                    draggable: '='
+                }
+            }
+        })
+
+        .directive('sbEditableSongs', function () {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: '/static/songbook/html/directives/editable-songs.html',
+                scope: {
+                    songs: '=',
+                    linked: '=',
+                    dropAddSong: '=',
+                    dropRemoveSong: '=',
+                    removeSong: '='
+                }
+            }
+        })
+
+        .directive('sbFilteredSongs', function () {
+            return {
+                restrict: 'E',
+                templateUrl: '/static/songbook/html/directives/filtered-songs.html',
+                scope: {
+                    songs: '=',
+                    linked: '=',
+                    draggable: '='
                 },
                 controller: function ($scope) {
                     $scope.categories = ['performer', 'composer', 'year'];

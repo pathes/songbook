@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}songbook/css/main.css">
         {% endcompress %}
         {% if user.is_authenticated %}
-        <script>window.username = '{{ user.username }}';</script>
+        <script>window.auth = {id: {{ user.id }}, username: '{{ user.username }}'};</script>
         {% endif %}
         {% compress js %}
         <script src="{{ STATIC_URL }}vendor/js/lodash.js"></script>
@@ -16,6 +16,7 @@
         <script src="{{ STATIC_URL }}vendor/js/angular-route.js"></script>
         <script src="{{ STATIC_URL }}vendor/js/angular-translate.js"></script>
         <script src="{{ STATIC_URL }}vendor/js/restangular.js"></script>
+        <script src="{{ STATIC_URL }}vendor/js/angular-dragdrop.js"></script>
         <script src="{{ STATIC_URL }}songbook/js/utils.js"></script>
         <script src="{{ STATIC_URL }}songbook/js/auth.js"></script>
         <script src="{{ STATIC_URL }}songbook/js/main.js"></script>
@@ -34,7 +35,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li ng-hide="auth.data.username">
+                    <li ng-hide="auth.id">
                         <form class="navbar-form navbar-right"
                               ng-submit="auth.login({username: username, password: password})">
                             <div class="form-group">
@@ -48,19 +49,19 @@
                             <div class="btn-group">
                                 <input type="submit" class="btn btn-default" ng-value="'signIn' | translate | sbUpperFirst">
                             </div>
-                            <div class="popover bottom popover-login" ng-show="auth.data.error">
+                            <div class="popover bottom popover-login" ng-show="auth.error">
                                 <div class="arrow"></div>
                                 <div class="popover-content">
-                                    [[ auth.data.error ]]
-                                    <button type="button" ng-click="auth.data.error = undefined" class="btn btn-danger btn-xs">×</button>
+                                    <button type="button" ng-click="auth.error = undefined" class="close pull-right">×</button>
+                                    [[ auth.error ]]
                                 </div>
                             </div>
                         </form>
                     </li>
-                    <li ng-show="auth.data.username">
-                        <a>[[ 'loggedAs' | translate | sbUpperFirst ]] [[ auth.data.username ]]</a>
+                    <li ng-show="auth.id">
+                        <a>[[ 'loggedAs' | translate | sbUpperFirst ]] [[ auth.username ]]</a>
                     </li>
-                    <li ng-show="auth.data.username">
+                    <li ng-show="auth.id">
                         <div class="navbar-form navbar-right">
                             <button class="btn btn-default" ng-click="auth.logout()">[[ 'signOut' | translate | sbUpperFirst ]]</button>
                         </div>

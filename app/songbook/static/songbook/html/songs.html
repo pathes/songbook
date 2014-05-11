@@ -1,0 +1,7 @@
+<div class="pull-right">
+    <button type="button" class="btn btn-primary" ng-show="authenticated()" ng-click="create()">
+        [[ 'create' | translate | sbUpperFirst ]]
+    </button>
+</div>
+<h2>[[ 'songs' | translate | sbUpperFirst ]]</h2>
+<sb-filtered-songs songs="songs" linked="true" draggable="false"></sb-filtered-songs>
