@@ -1,6 +1,8 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render
 from django.db.models import Q
+from django.http import HttpResponse
+from django.views.generic import View
 
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
@@ -10,6 +12,7 @@ from permissions import *
 from models import *
 from serializers import *
 from authenticators import *
+from tasks import *
 
 
 def main_view(request, **kwargs):
@@ -91,3 +94,19 @@ class ArticleViewSet(viewsets.ModelViewSet):
     permission_classes = (
         IsAuthorOrReadOnly,
     )
+
+
+class SonglistPDFView(View):
+    def get(self, request, songlist_id=None):
+        tex_content = """
+\documentclass[12pt]{article}
+\\begin{document}
+\LaTeX\ test
+
+This is songlist """ + str(songlist_id) + """
+\end{document}
+"""
+        pdf_content = tex_to_pdf(tex_content)
+        response = HttpResponse(pdf_content, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=songbook' + str(songlist_id) + '.pdf'
+        return response
