@@ -14,7 +14,7 @@
                 headers['Authorization'] = 'Basic ' + btoa(data.username + ':' + data.password);
             }
 
-            var Auth = $resource('/api/auth\\/', {}, {
+            var Auth = $resource('/api/auth/ ', {}, {
                 login: {method: 'POST', transformRequest: addAuthHeader},
                 logout: {method: 'DELETE'}
             });
