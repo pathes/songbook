@@ -1,8 +1,9 @@
 from django.contrib.auth import login, logout
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.http import HttpResponse
 from django.views.generic import View
+from django.template.loader import render_to_string
 
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
@@ -98,15 +99,9 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
 class SonglistPDFView(View):
     def get(self, request, songlist_id=None):
-        tex_content = """
-\documentclass[12pt]{article}
-\\begin{document}
-\LaTeX\ test
-
-This is songlist """ + str(songlist_id) + """
-\end{document}
-"""
+        songlist = get_object_or_404(Songlist, pk=songlist_id)
+        tex_content = render_to_string('songbook/songbook.tex', {'songs': songlist.songs.all()})
         pdf_content = tex_to_pdf(tex_content)
         response = HttpResponse(pdf_content, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename=songbook' + str(songlist_id) + '.pdf'
+        response['Content-Disposition'] = 'attachment; filename=' + songlist.title + '.pdf'
         return response

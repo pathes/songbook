@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from latex import parse_song_content
+
 
 class Song(models.Model):
     author = models.ForeignKey(User)
@@ -16,6 +18,9 @@ class Song(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def parsed_content(self):
+        return parse_song_content(self.content)
 
 
 class Songlist(models.Model):

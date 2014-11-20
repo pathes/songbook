@@ -1,0 +1,7 @@
+{% load latex_escape %}
+\renewcommand{\zespol}{\hspace{0pt}{{ song.performer | latex_escape | safe }}\hspace{0pt}}
+\addcontentsline{toc}{chapter}{\hspace{0pt}{{ song.performer | latex_escape | safe }}\hspace{0pt}}
+\tytul{\hspace{0pt}{{ song.title | latex_escape | safe }}\hspace{0pt}}{\hspace{0pt}{{ song.year | latex_escape | safe }}\hspace{0pt}}
+\nazwa{\hspace{0pt}{{ song.title | latex_escape | safe }}\hspace{0pt}}{\hspace{0pt}{{ song.genre | latex_escape | safe }}\hspace{0pt}}
+
+{{ song.parsed_content | safe }}

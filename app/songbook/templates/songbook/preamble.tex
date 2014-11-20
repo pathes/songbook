@@ -1,0 +1,87 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\usepackage{hyperref}
+\hypersetup{pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black,hyperindex={true}}
+
+\usepackage{multirow}
+\usepackage[landscape, lmargin=2cm, rmargin=.8cm, tmargin=1.5cm,bmargin=1.5cm]{geometry}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+{\normalfont\Large\bfseries}{\thechapter}{1em}{\Large}
+\titleformat{\section}
+{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\chapter} {3pt}{\baselineskip}{3pt}
+\titlespacing*{\section} {3pt}{\baselineskip}{3pt}
+\usepackage{needspace}
+\setlength{\columnsep}{1.5cm}
+\setlength{\columnseprule}{.pt}
+
+\usepackage{makeidx}
+\makeindex
+
+\setlength{\parskip}{2mm}
+\setlength{\parindent}{0mm}
+
+\newcommand{\tytul}[2]
+{
+\section*{\normalsize{\textit{\zespol}}\\ \Large{#1 (#2)} }
+\addcontentsline{toc}{section}{#1}
+}
+
+\newcommand{\tytulautor}[3]
+{
+\section*{\normalsize{\textit{s\l . #3, muz. i wyk. \zespol}}\\ \Large{#1 (#2)} }
+\addcontentsline{toc}{section}{#1}
+}
+\newcommand{\tytulautorkompozytor}[4]
+{
+\section*{\normalsize{\textit{s\l . #3, muz. #4, wyk. \zespol}}\\ \Large{#1 (#2)} }
+\addcontentsline{toc}{section}{#1}
+}
+\newcommand{\info}[1]
+{
+\footnotesize{\textit{#1}} \normalsize \newline
+}
+
+\newcommand{\zwrotka}
+{
+\hspace{0mm}
+\begin{tabular}{l l l}
+}
+\newcommand{\reff}
+{
+\refren ref. \koniec
+}
+
+\newcommand{\refren}
+{
+\hspace{5mm}
+\begin{tabular}{l l l}
+}
+
+\newcommand{\koniec}
+{
+\end{tabular}
+\par
+}
+
+\newcommand{\nazwa}[2]
+{\index{#1, \protect\textit{\zespol}}
+\index{\textbf{#2}!#1, \protect\textit{\zespol}}}
+
+\newcommand{\pierwsze}[1]
+{&\multirow{2}{*}{\huge{\}}\normalsize{\textbf{#1}}}& \\ }
+\newcommand{\drugie}
+{& & \\ }
+
+\newcommand{\chwyty}[1]
+{&\textbf{#1}&\\ }
+
+\newcommand{\zespol}{tymczasowy}
+
+\begin{document}
+\begin{multicols}{2}
