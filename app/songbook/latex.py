@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from re import sub
 from templatetags.latex_escape import latex_escape
 
 LATEX = {
@@ -12,6 +14,17 @@ LATEX = {
 class SongState:
     Nothing, Verse, Chorus = range(3)
 
+
+def accidentals(str):
+    return sub(
+        r'([a-zA-Z]+)b',
+        ur'\1♭',
+        sub(
+            r'([a-zA-Z]+)#',
+            ur'\1♯',
+            unicode(str)
+        )
+    )
 
 def parse_song_content(song_content):
     result = []
@@ -55,7 +68,7 @@ def parse_song_content(song_content):
                 latex_escape(line[:comment_index].strip()) +
                 LATEX['chords_token'] +
                 u'{' +
-                latex_escape(line[comment_index+1:].strip()) +
+                latex_escape(accidentals(line[comment_index+1:].strip())) +
                 u'}\n'
             )
         except ValueError:
