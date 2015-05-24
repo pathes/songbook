@@ -17,7 +17,7 @@ def run_pdflatex(tex_filename):
 def tex_to_pdf(tex_content):
     # Create temp folder and get into it.
     orig_folder = os.getcwd()
-    tmp_folder = mkdtemp()
+    tmp_folder = mkdtemp(dir='/home/fraktal/rails/kaczmarski/tmp/')
     os.chdir(tmp_folder)
     # Create TeX file and write content.
     tex_file, tex_filename = mkstemp(dir=tmp_folder)
@@ -27,6 +27,14 @@ def tex_to_pdf(tex_content):
     for i in range(2):
         run_pdflatex(tex_filename)
     # Read PDF file
+
+    """dbg = ''
+    for f in os.listdir(tmp_folder):
+        dbg += f + '\n\n'
+        dbg += open(tmp_folder + '/' + f).read()
+        dbg += '\n\n\n\n\n'
+    return dbg"""
+
     pdf_file = open(tex_filename + '.pdf', 'r')
     pdf_content = pdf_file.read()
     pdf_file.close()

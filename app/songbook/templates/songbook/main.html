@@ -24,10 +24,10 @@
         <title ng-bind="'appName' | translate | sbUpperFirst">songbook</title>
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">[[ 'appName' | translate | sbUpperFirst ]]</a>
+                    <a class="navbar-brand" href="/"> <img src="http://www.iconeasy.com/icon/png/Media/Stringed%20Instruments/Guitar.png" height=50px> </a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li ng-repeat="menuItem in menuItems" ng-class="menuItemActive(menuItem)">

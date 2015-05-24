@@ -38,7 +38,16 @@
                 templateUrl: '/static/songbook/html/songlist.html',
                 controller: 'sbSonglistController',
                 inMenu: false
+            },
+
+	   {
+		caption: 'menuInstructions',
+                url: '/instructions',
+                templateUrl: '/static/songbook/html/instructions.html',
+                controller: 'sbInstructionsController',
+                inMenu: true
             }
+
         ])
 
         .constant('sbAccountsUrl', [
@@ -66,6 +75,7 @@
                 menuSong: 'song',
                 menuSonglists: 'song lists',
                 menuSonglist: 'song list',
+		menuInstructions: 'instructions',
                 home: 'home',
                 song: 'song',
                 songs: 'songs',
@@ -80,10 +90,14 @@
                 save: 'save',
                 saved: 'saved',
                 create: 'create',
-                generatePDF: 'generate PDF'
+                generatePDF: 'generate PDF' ,
+		welcomeTitle: 'Welcome',
+		welcome: 'Here will be cool welcome text',
+		updates: 'Updates:',
+		instructions: 'Instructions on typping songs'
             },
             pl: {
-                appName: 'śpiewnik',
+                appName: 'Śpiewnik', 
                 signIn: 'zaloguj',
                 signOut: 'wyloguj',
                 loggedAs: 'zalogowano jako',
@@ -92,6 +106,7 @@
                 menuSong: 'piosenka',
                 menuSonglists: 'listy piosenek',
                 menuSonglist: 'lista piosenek',
+		menuInstructions: 'instrukcje',
                 home: 'strona główna',
                 song: 'piosenka',
                 songs: 'piosenki',
@@ -106,7 +121,12 @@
                 save: 'zapisz',
                 saved: 'zapisano',
                 create: 'utwórz',
-                generatePDF: 'generuj PDF'
+                generatePDF: 'generuj PDF' ,
+		welcomeTitle: 'Witajcie',
+		welcome: 'Tutuaj będzie ziomalskie powitanie',
+		updates: 'Wiadomości:',
+		instructions: 'Instrukcje wpisywania piosenki'
+
             }
         })
 
