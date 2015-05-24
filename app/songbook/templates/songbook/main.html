@@ -33,6 +33,9 @@
                     <li ng-repeat="menuItem in menuItems" ng-class="menuItemActive(menuItem)">
                        <a ng-href="[[ menuItem.url ]]">[[ menuItem.caption | translate | sbUpperFirst ]]</a>
                     </li>
+                    <li ng-show="auth.id">
+                        <a target="_self" ng-href="/api/pdf/0/">[[ 'allPdf' | translate | sbUpperFirst ]]</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li ng-hide="auth.id">

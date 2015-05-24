@@ -83,40 +83,61 @@
                     return !!sbAuth.id;
                 },
                 create: function () {
-                    Restangular.all('song').post({
-                        author: sbAuth.id,
-                        title: '…',
-                        content: '…'
-                    }).then(function (newSong) {
-                        $location.path('/song/' + newSong.pk);
-                    });
+                    $location.path('/song/new');
                 }
             });
         })
 
         .controller('sbSongController', function ($scope, $routeParams, $location, sbAuth, Restangular) {
-            Restangular.one('song', +$routeParams.songId).get().then(
-                function (song) {
-                    _.assign($scope, {
-                        song: song,
-                        editing: function () {
-                            return sbAuth.id === song.author;
-                        }
-                    });
-                },
-                function () {
-                    $location.path('/song');
-                }
-            );
-            _.assign($scope, {
-                params: $routeParams,
-                saved: true,
-                save: function () {
-                    $scope.song.put().then(function () {
-                        $scope.saved = true;
-                    });
-                }
-            });
+            if ($routeParams.songId === 'new') {
+                _.assign($scope, {
+                    params: $routeParams,
+                    song: {
+                        author: sbAuth.id,
+                        title: '…',
+                        content: '…',
+                        performer: '',
+                        composer: '',
+                        genre: '',
+                        year: '',
+                        confirmed: false,
+                    },
+                    editing: function () {
+                        return true;
+                    },
+                    saved: false,
+                    save: function () {
+                        Restangular.all('song').post($scope.song).then(function (newSong) {
+                            $location.path('/song/' + newSong.pk);
+                        });
+                    }
+                });
+            } else {
+                Restangular.one('song', +$routeParams.songId).get().then(
+                    // Song exists
+                    function (song) {
+                        _.assign($scope, {
+                            song: song,
+                            editing: function () {
+                                return sbAuth.id === song.author;
+                            }
+                        });
+                    },
+                    // Song does not exist
+                    function () {
+                        $location.path('/song');
+                    }
+                );
+                _.assign($scope, {
+                    params: $routeParams,
+                    saved: true,
+                    save: function () {
+                        $scope.song.put().then(function () {
+                            $scope.saved = true;
+                        });                        
+                    }
+                });
+            }
         })
 
         .controller('sbSonglistsController', function ($scope, sbAuth, $location, Restangular) {

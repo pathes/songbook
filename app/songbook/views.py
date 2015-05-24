@@ -99,9 +99,15 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
 class SonglistPDFView(View):
     def get(self, request, songlist_id=None):
-        songlist = get_object_or_404(Songlist, pk=songlist_id)
-        tex_content = render_to_string('songbook/songbook.tex', {'songs': songlist.songs.all()})
+        if int(songlist_id) == 0:
+            songs = Song.objects.all()
+            title = 'all'
+        else:
+            songlist = get_object_or_404(Songlist, pk=songlist_id)
+            songs = songlist.songs.all()
+            title = songlist.title
+        tex_content = render_to_string('songbook/songbook.tex', {'songs': songs})
         pdf_content = tex_to_pdf(tex_content)
         response = HttpResponse(pdf_content, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename=' + songlist.title + '.pdf'
+        response['Content-Disposition'] = 'attachment; filename=' + title + '.pdf'
         return response
