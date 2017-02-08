@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from latex import parse_song_content
+from .latex import parse_song_content
 
 
 class Song(models.Model):
@@ -41,7 +41,7 @@ class SonglistItem(models.Model):
     order = models.IntegerField()
 
     def __unicode__(self):
-        return u'{}[{}] {}'.format(self.songlist.title, self.order, self.song.title)
+        return '{}[{}] {}'.format(self.songlist.title, self.order, self.song.title)
 
 
 class Article(models.Model):

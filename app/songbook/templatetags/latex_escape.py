@@ -9,6 +9,7 @@
 """
 
 from django import template
+from functools import reduce
 
 register = template.Library()
 
@@ -27,9 +28,9 @@ def latex_escape(x):
         '\\': '\\textbackslash ',
         '<': '\\textless ',
         '>': '\\textgreater ',
-        u'♯': '$\sharp$ ',
-        u'♭': '$\\flat$ ',
+        '♯': '$\sharp$ ',
+        '♭': '$\\flat$ ',
     }
     return reduce(
-        lambda a, kv: a.replace(*kv), repls.iteritems(), unicode(x)
+        lambda a, kv: a.replace(*kv), iter(list(repls.items())), str(x)
     )

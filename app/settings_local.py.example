@@ -12,8 +12,6 @@ SECRET_KEY = '4nhr!b7fxzkm@y8ov*f)rg31&eqf)y=n^^5xmvvlqjvy1@x+xm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
@@ -26,7 +24,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    'south',
     'rest_framework',
     'app.songbook',
 )

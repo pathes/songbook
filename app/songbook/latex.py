@@ -1,28 +1,28 @@
 # -*- coding: utf-8 -*-
 from re import sub
-from templatetags.latex_escape import latex_escape
+from .templatetags.latex_escape import latex_escape
 
 LATEX = {
-    'verse_token': u'\zwrotka',
-    'chorus_token': u'\\refren',
-    'verse_end_token': u'\koniec',
-    'chorus_end_token': u'\koniec',
-    'chords_token': u'\chwyty',
+    'verse_token': '\zwrotka',
+    'chorus_token': '\\refren',
+    'verse_end_token': '\koniec',
+    'chorus_end_token': '\koniec',
+    'chords_token': '\chwyty',
 }
 
 
 class SongState:
-    Nothing, Verse, Chorus = range(3)
+    Nothing, Verse, Chorus = list(range(3))
 
 
 def accidentals(str):
     return sub(
         r'([a-zA-Z]+)b',
-        ur'\1♭',
+        r'\1♭',
         sub(
             r'([a-zA-Z]+)#',
-            ur'\1♯',
-            unicode(str)
+            r'\1♯',
+            str(str)
         )
     )
 
@@ -63,15 +63,15 @@ def parse_song_content(song_content):
         if current_state == SongState.Nothing:
             continue
         try:
-            comment_index = line.index(u'|')
+            comment_index = line.index('|')
             result.append(
                 latex_escape(line[:comment_index].strip()) +
                 LATEX['chords_token'] +
-                u'{' +
+                '{' +
                 latex_escape(accidentals(line[comment_index+1:].strip())) +
-                u'}\n'
+                '}\n'
             )
         except ValueError:
-            result.append(latex_escape(line.strip()) + u' ' + LATEX['chords_token'] + u'{}\n')
+            result.append(latex_escape(line.strip()) + ' ' + LATEX['chords_token'] + '{}\n')
 
     return '\n'.join(result)

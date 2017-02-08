@@ -15,11 +15,7 @@ Development setup
 virtualenv .
 . bin/activate
 ```
-If your default system python is `python3`, you may want to create `virtualenv` instance with python2.
 
-```
-virtualenv -p /path/to/python2 .
-```
 * Install required python packages
 
 ```
@@ -33,7 +29,8 @@ cp app/settings_local.py.example app/settings_local.py
 * Create a database. `sqlite` is default. This will also allow you to create admin account.
 
 ```
-python manage.py syncdb
+python manage.py makemigrations songbook
+python manage.py migrate
 ```
 
 If you want to have initial data in database, load fixtures.

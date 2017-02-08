@@ -1,25 +1,27 @@
-{% load compress %}<!DOCTYPE html>
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
 <html ng-app="sb" ng-controller="sbBaseController">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}vendor/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}songbook/css/main.css">
+        <link rel="stylesheet" href="{% static 'vendor/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'songbook/css/main.css' %}">
         {% endcompress %}
         {% if user.is_authenticated %}
         <script>window.auth = {id: {{ user.id }}, username: '{{ user.username }}'};</script>
         {% endif %}
         {% compress js %}
-        <script src="{{ STATIC_URL }}vendor/js/lodash.js"></script>
-        <script src="{{ STATIC_URL }}vendor/js/angular.js"></script>
-        <script src="{{ STATIC_URL }}vendor/js/angular-resource.js"></script>
-        <script src="{{ STATIC_URL }}vendor/js/angular-route.js"></script>
-        <script src="{{ STATIC_URL }}vendor/js/angular-translate.js"></script>
-        <script src="{{ STATIC_URL }}vendor/js/restangular.js"></script>
-        <script src="{{ STATIC_URL }}vendor/js/angular-dragdrop.js"></script>
-        <script src="{{ STATIC_URL }}songbook/js/utils.js"></script>
-        <script src="{{ STATIC_URL }}songbook/js/auth.js"></script>
-        <script src="{{ STATIC_URL }}songbook/js/main.js"></script>
+        <script src="{% static 'vendor/js/lodash.js' %}"></script>
+        <script src="{% static 'vendor/js/angular.js' %}"></script>
+        <script src="{% static 'vendor/js/angular-resource.js' %}"></script>
+        <script src="{% static 'vendor/js/angular-route.js' %}"></script>
+        <script src="{% static 'vendor/js/angular-translate.js' %}"></script>
+        <script src="{% static 'vendor/js/restangular.js' %}"></script>
+        <script src="{% static 'vendor/js/angular-dragdrop.js' %}"></script>
+        <script src="{% static 'songbook/js/utils.js' %}"></script>
+        <script src="{% static 'songbook/js/auth.js' %}"></script>
+        <script src="{% static 'songbook/js/main.js' %}"></script>
         {% endcompress %}
         <title ng-bind="'appName' | translate | sbUpperFirst">songbook</title>
     </head>
