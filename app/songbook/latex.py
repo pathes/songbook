@@ -15,14 +15,14 @@ class SongState:
     Nothing, Verse, Chorus = list(range(3))
 
 
-def accidentals(str):
+def accidentals(text):
     return sub(
         r'([a-zA-Z]+)b',
         r'\1♭',
         sub(
             r'([a-zA-Z]+)#',
             r'\1♯',
-            str(str)
+            str(text)
         )
     )
 
