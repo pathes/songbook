@@ -9,10 +9,14 @@ def run_pdflatex(tex_filename):
         stdout=subprocess.PIPE,
         stdin=subprocess.PIPE
     )
-    pdflatex.stdin.write('q' * 10)  # just to be sure that no errors stop rendering
-    pdflatex.communicate()
-    pdflatex.stdin.close()
-
+    # TypeError: a bytes-like object is required, not 'str'
+    # Forcing latex to render:
+    # * "-interaction={whatever}" does not reliably ignore errors
+    # * pressing Q+ENTER inside "?" state seems to force to render
+    # * pressing Q+ENTER inside "enter file name" state keeps you in that state
+    # * pressing ENTER inside "enter file name" state transitions to "?" state
+    # so we press ENTER to exit the "enter file name" state and ENTER+Q to force rendering
+    std_out, std_err = pdflatex.communicate(b'\nq\n' * 16)
 
 def tex_to_pdf(tex_content):
     # Create temp folder and get into it.
@@ -27,7 +31,7 @@ def tex_to_pdf(tex_content):
     for i in range(2):
         run_pdflatex(tex_filename)
     # Read PDF file
-    pdf_file = open(tex_filename + '.pdf', 'r')
+    pdf_file = open(tex_filename + '.pdf', 'rb')
     pdf_content = pdf_file.read()
     pdf_file.close()
     # Remove temp folder and get back.

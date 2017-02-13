@@ -1,4 +1,4 @@
-from itertools import count, izip
+from itertools import count
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User
@@ -6,8 +6,10 @@ from django.db import transaction
 
 from rest_framework import serializers
 
-from models import *
+from .models import *
 
+# restore_object -> update / create
+#   http://www.django-rest-framework.org/topics/3.0-announcement/#the-create-and-update-methods
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,29 +19,27 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
         write_only_fields = ('password',)
 
-    def restore_object(self, attrs, instance=None):
-        user = super(UserSerializer, self).restore_object(attrs, instance)
-        user.set_password(attrs['password'])
-        return user
-
+    def update(self, instance, attrs):
+        super().update(instance, attrs)
+        instance.set_password(attrs['password'])
+        return instance
 
 class SongSerializer(serializers.ModelSerializer):
-    pk = serializers.Field()
+    pk = serializers.ReadOnlyField()
 
     class Meta:
         model = Song
         fields = ('pk', 'author', 'title', 'performer', 'composer', 'genre', 'year', 'confirmed', 'content')
         read_only_fields = ('confirmed',)
 
-    def restore_object(self, attrs, instance=None):
+    def update(self, instance, attrs):
         attrs['confirmed'] = False
-        return super(SongSerializer, self).restore_object(attrs, instance)
-
+        return super().update(instance, attrs)
 
 class SonglistSerializer(serializers.ModelSerializer):
-    pk = serializers.Field()
-    songs = serializers.PrimaryKeyRelatedField(many=True)
-    author_name = serializers.Field(source='author.__unicode__')
+    pk = serializers.ReadOnlyField()
+    songs = serializers.PrimaryKeyRelatedField(many=True, queryset=Song.objects.all())
+    author_name = serializers.Field(source='author.__unicode__', required=False)
 
     class Meta:
         model = Songlist
@@ -53,23 +53,21 @@ class SonglistSerializer(serializers.ModelSerializer):
             SonglistItem.objects.filter(songlist=songlist).delete()
         songlist.save()
         # ...and creating new.
-        for (order, song) in izip(count(), songs):
+        for (order, song) in zip(count(), songs):
             SonglistItem.objects.create(song=song, songlist=songlist, order=order)
         # Note that it won't remove items on some exception because transaction is atomic.
 
-    def restore_object(self, attrs, instance=None):
+    def update(self, instance, attrs):
         songs = attrs.get('songs', ())
         attrs.pop('songs', None)
-        if instance is None:
-            songlist = Songlist(**attrs)
-        else:
-            songlist = super(SonglistSerializer, self).restore_object(attrs, instance)
+
+        songlist = super().update(instance, attrs)
+
         self.__create_items(songlist, songs)
         return songlist
 
-
 class ArticleSerializer(serializers.ModelSerializer):
-    pk = serializers.Field()
+    pk = serializers.ReadOnlyField()
 
     class Meta:
         model = Article

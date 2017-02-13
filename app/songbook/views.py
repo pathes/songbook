@@ -9,11 +9,11 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from permissions import *
-from models import *
-from serializers import *
-from authenticators import *
-from tasks import *
+from .permissions import *
+from .models import *
+from .serializers import *
+from .authenticators import *
+from .tasks import *
 
 
 def main_view(request, **kwargs):
@@ -30,7 +30,7 @@ class LocaleView(APIView):
 
     def post(self, request, format=None):
         if request.method == 'POST':
-            request.session['django_language'] = request.DATA['locale']
+            request.session['django_language'] = request.data['locale']
         return Response({'locale': request.session['django_language']})
 
 
@@ -75,18 +75,22 @@ class SonglistViewSet(viewsets.ModelViewSet):
             q = q | Q(author=user)
         return Songlist.objects.filter(q)
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+    # def perform_create(self, serializer):
+    #     #  self.object = serializer.save(force_insert=False)  # the only change between ModelViewSet and this
+    #     serializer.save(force_insert=False)
 
-        if serializer.is_valid():
-            self.pre_save(serializer.object)
-            self.object = serializer.save(force_insert=False)  # the only change between ModelViewSet and this
-            self.post_save(self.object, created=True)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED,
-                            headers=headers)
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     if serializer.is_valid():
+    #         self.pre_save(serializer.object)
+    #         self.object = serializer.save(force_insert=False)  # the only change between ModelViewSet and this
+    #         self.post_save(self.object, created=True)
+    #         headers = self.get_success_headers(serializer.data)
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED,
+    #                         headers=headers)
+
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ArticleViewSet(viewsets.ModelViewSet):
