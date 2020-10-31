@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^api/auth/$', views.AuthView.as_view(), name='authenticate'),
     url(r'^api/locale/$', views.LocaleView.as_view(), name='locale'),
     url(r'^api/pdf/(?P<songlist_id>.*)/$', views.SonglistPDFView.as_view(), name='locale'),
+    url(r'^api/tex/(?P<songlist_id>.*)/$', views.SonglistTEXView.as_view(), name='locale'),
     url(r'^(?P<subpage>.*)$', views.main_view),
 ]

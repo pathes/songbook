@@ -109,3 +109,13 @@ class SonglistPDFView(View):
         response = HttpResponse(pdf_content, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename=' + songlist.title + '.pdf'
         return response
+
+
+class SonglistTEXView(View):
+    def get(self, request, songlist_id=None):
+        songlist = get_object_or_404(Songlist, pk=songlist_id)
+        tex_content = render_to_string('songbook/songbook.tex', {'songs': songlist.songs.all()})
+        response = HttpResponse(tex_content, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename=' + songlist.title + '.tex'
+        return response
+ 

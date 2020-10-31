@@ -16,7 +16,7 @@ class Song(models.Model):
     confirmed = models.BooleanField(default=False)
     content = models.TextField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def parsed_content(self):
@@ -31,7 +31,7 @@ class Songlist(models.Model):
     songs = models.ManyToManyField(Song, through='SonglistItem')
     is_public = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -40,7 +40,7 @@ class SonglistItem(models.Model):
     songlist = models.ForeignKey(Songlist)
     order = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return '{}[{}] {}'.format(self.songlist.title, self.order, self.song.title)
 
 

@@ -1,6 +1,6 @@
 <div class="pull-right">
-    <a class="btn btn-default" ng-disabled="!saved" target="_self" ng-href="[[ '/api/pdf/' + songlist.pk + '/' ]]">
-        [[ 'generatePDF' | translate | sbUpperFirst ]]
+    <a class="btn btn-default" ng-disabled="!saved" target="_self" ng-href="[[ 'https://www.overleaf.com/docs?snip_uri=http://songbook.tomaszo.pl/api/tex/' + songlist.pk + '/' ]]">
+        [[ 'generatePDF' | translate | sbUpperFirst ]]!
     </a>
     <button type="button" class="btn btn-primary" ng-show="editing()" ng-disabled="saved" ng-click="save()">
         [[ (saved ? 'saved' : 'save') | translate | sbUpperFirst ]]
